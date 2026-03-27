@@ -1,9 +1,24 @@
-#include <iostream>
+#include "mainwindow.h"
 
-int main(int argc, char const *argv[])
+#include <QApplication>
+#include <QLocale>
+#include <QTranslator>
+
+
+int main(int argc, char *argv[])
 {
-    /* code */
-    std::cout << "Hello!!!! \n";
+    QApplication a(argc, argv);
 
-    return 0;
+    QTranslator translator;
+    const QStringList uiLanguages = QLocale::system().uiLanguages();
+    for (const QString &locale : uiLanguages) {
+        const QString baseName = "jpo2026_" + QLocale(locale).name();
+        if (translator.load(":/i18n/" + baseName)) {
+            a.installTranslator(&translator);
+            break;
+        }
+    }
+    MainWindow w;
+    w.show();
+    return QCoreApplication::exec();
 }

@@ -1,5 +1,7 @@
 # other DIR
 .vscode
+.qtcreator
+build
 
 # Prerequisites
 *.d
